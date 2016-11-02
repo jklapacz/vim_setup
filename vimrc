@@ -2,7 +2,18 @@ execute pathogen#infect()
 "Use pathogen
 filetype on "File type detection
 syntax on  "Syntax highlighting
-colorscheme Tomorrow-Night
+"colorscheme Tomorrow-Night
+
+let g:lightline = {
+      \ 'colorscheme':'wombat',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+
+colorscheme default
 
 set guifont=Menlo\ Regular:h18 "Set the font
 
@@ -19,7 +30,16 @@ let mapleader=" "
 
 "Avoid reloading vim everytime vimrc changes
 "	Map to <leader>s
-map <leader>s :source ~/.vimrc<CR>
+" map <leader>s :source ~/.vimrc<CR>
+" Alternate to this, use autocmd
+
+augroup myvimrc " {
+  autocmd!
+  autocmd BufWritePost vimrc nested source ~/.vimrc
+  "autocmd!
+  "Remove whitespace on save
+  "autocmd! BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
 "Set more info to store in memory
 set hidden
@@ -35,8 +55,6 @@ set expandtab "Instead of a tab character, expands to spaces
 set smartindent "Automatically inserts next level of indenting in some cases
 set autoindent "Carry over indentation of previous line
 
-"Remove whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
 
 "Highlight found words
 set hlsearch
@@ -67,3 +85,10 @@ noremap <Leader>r :CommandTFlush<CR>
 " required for nerd commenter
 filetype plugin on
 
+" Lightline display always
+set laststatus=2
+
+"Fix colors
+if !has('gui_running')
+    set t_Co=256
+endif
