@@ -1,0 +1,15 @@
+Plugins are added using pathogen
+plugins are installed with git submodules
+
+For every plugin to install run:
+  $ cd ~/.vim
+  $ git submodule add git@source/pluginname.git bundle/pluginname
+
+e.g adding vim-ruby from https://github.com/vim-ruby/vim-ruby:
+  $ git submodule add git@github.com:vim-ruby/vim-ruby.git bundle/vim-ruby
+
+Adding vimrc on new machines use:
+  git submodule init
+Updating plugins:
+  git submodule update
+
